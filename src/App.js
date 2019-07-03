@@ -1,21 +1,19 @@
 import React, { useState, useEffect } from 'react';
 import Container from '@material-ui/core/Container';
 import Box from '@material-ui/core/Box';
+import Grid from '@material-ui/core/Grid';
 import TextField from '@material-ui/core/TextField';
 import Typography from '@material-ui/core/Typography';
 import Radio from '@material-ui/core/Radio';
 import RadioGroup from '@material-ui/core/RadioGroup';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Divider from '@material-ui/core/Divider';
+import Fab from '@material-ui/core/Fab';
+import { K, STATES } from './constants';
+import Details from './Details';
 
 const getBaseLog = (x, y) => {
   return Math.log(y) / Math.log(x);
-};
-
-const K = 2.2;
-const STATES = {
-  BANK: 'bank',
-  ROUND_NUM: 'roundNum',
 };
 
 function App() {
@@ -23,6 +21,7 @@ function App() {
   const [bank, setBank] = useState(10000);
   const [initBet, setInitBet] = useState(100);
   const [roundNum, setRoundNum] = useState(0);
+  const [isDetailed, setDetailedStatus] = useState(true);
 
   const onBankChange = event => {
     const newBank = event.target.value ? +event.target.value : '';
@@ -70,7 +69,6 @@ function App() {
       setBank(Math.ceil(arg));
     }
   };
-
 
   useEffect(useBank, [bank, initBet, currentVariant]);
   useEffect(useNumOfRounds, [roundNum, initBet, currentVariant]);
@@ -125,6 +123,14 @@ function App() {
           <Typography variant="subtitle1">👉Необходимо <strong style={{ color: 'green' }}>{bank}</strong> с первой ставкой в <strong style={{ color: 'green' }}>{initBet}</strong> что бы хватило на <strong style={{ color: 'green' }}>{roundNum}</strong> раунда(ов) 🤑</Typography>
         )}
         <Divider variant="fullWidth" />
+        <Grid container justify="center">
+          <Grid item>
+            <Fab variant="extended" color="primary" size="medium" onClick={() => setDetailedStatus(!isDetailed)} style={{ marginTop: '15px' }}>
+              <span>{ isDetailed ? 'Свернуть' : 'Подробнее' }</span>
+            </Fab>
+          </Grid>
+        </Grid>
+        { isDetailed && <Details bank={bank} initBet={initBet} roundNum={roundNum} /> }
       </Box>
     </Container>
   );
