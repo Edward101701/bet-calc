@@ -117,10 +117,10 @@ function App() {
         />
         <Divider variant="fullWidth" />
         { currentVariant === STATES.BANK && (
-          <Typography variant="subtitle1">👉<strong style={{ color: 'green' }}>{bank}</strong> с первой ставкой в <strong style={{ color: 'green' }}>{initBet}</strong> хватит на <strong style={{ color: 'green' }}>{roundNum}</strong> раунда(ов) 🤑</Typography>
+          <Typography variant="subtitle1">👉<strong style={{ color: 'green' }}>{bank}</strong> с первой ставкой в <strong style={{ color: 'green' }}>{initBet > 0 ? initBet : '???'}</strong> хватит на <strong style={{ color: 'green' }}>{roundNum}</strong> раунда(ов) 🤑</Typography>
         )}
         { currentVariant === STATES.ROUND_NUM && (
-          <Typography variant="subtitle1">👉Необходимо <strong style={{ color: 'green' }}>{bank}</strong> с первой ставкой в <strong style={{ color: 'green' }}>{initBet}</strong> что бы хватило на <strong style={{ color: 'green' }}>{roundNum}</strong> раунда(ов) 🤑</Typography>
+          <Typography variant="subtitle1">👉Необходимо <strong style={{ color: 'green' }}>{bank}</strong> с первой ставкой в <strong style={{ color: 'green' }}>{initBet > 0 ? initBet : '???'}</strong> что бы хватило на <strong style={{ color: 'green' }}>{roundNum > 0 ? roundNum : '?'}</strong> раунда(ов) 🤑</Typography>
         )}
         <Divider variant="fullWidth" />
         <Grid container justify="center">
